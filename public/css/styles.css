@@ -4,3 +4,12 @@
 *:after {
   box-sizing: border-box;
 }
+
+body {
+  background-image: url('../public/images/site/checkerboard.jpg');
+  background-size: cover; /* Ensures the image covers the entire body */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+  background-position: center; /* Centers the image */
+  border: 2px solid red;
+}
+
