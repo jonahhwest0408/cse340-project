@@ -12,13 +12,8 @@
   "dependencies": {
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
-<<<<<<< HEAD
-    "express-ejs-layouts": "^2.5.1",
-    "pg": "^8.8.0"
-=======
     "pg": "^8.8.0",
     "express-ejs-layouts": "^2.5.1"
->>>>>>> 9904c98fbae0807d82c61d993de458cbc63c4520
   },
   "devDependencies": {
     "nodemon": "^3.1.0"
