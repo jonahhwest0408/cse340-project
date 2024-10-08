@@ -64,7 +64,7 @@ app.use("/inv", inventoryRoute)
 app.use("/account", accountRoute);
 
 // Error route
-app.use('/', errorRoute);
+app.use('/error', errorRoute);
 
 // Error-handling middleware (place this after all other routes)
 app.use((err, req, res, next) => {
