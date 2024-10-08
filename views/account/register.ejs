@@ -1,0 +1,36 @@
+<h1><%- title %></h1>
+<%- messages() %>
+<% if (errors) { %>
+    <ul class="notice">
+   <% errors.array().forEach(error => { %>
+     <li><%= error.msg %></li>
+  <%  }) %>
+   </ul>
+  <% } %>
+
+<div class="registration-container">
+    <form class="input-box" id="registrationForm" action="/account/register" method="post">
+        <label>First name<input type="text" name="account_firstname" required autocomplete="given-name" value="<%= locals.account_firstname %>"></label>
+        <label>Last name<input type="text" name="account_lastname" required autocomplete="family-name" value="<%= locals.account_lastname %>"></label>
+        <label>Email address<input type="email" name="account_email" required autocomplete="email" value="<%= locals.account_email %>"></label>
+        <label>Password
+            <input type="password" name="account_password" id="password" required autocomplete="new-password" 
+                   pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{12,}$">
+            <button type="button" class="toggle-password" id="togglePassword">Show Password</button>
+        </label>
+        <span class="fine-print">Password must be 12 characters or longer, contain 1 capital letter, 1 number, and 1 special character.</span>
+        <input type="submit" id="registerButton" value="REGISTER">
+    </form>
+</div>
+<!-- Script to handle hiding and revealing password field -->
+<script>
+    const passwordInput = document.querySelector("#password");
+    const togglePassword = document.querySelector("#togglePassword");
+
+    togglePassword.addEventListener("click", () => {
+        const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+        passwordInput.setAttribute("type", type);
+
+        togglePassword.textContent = type === "password" ? "Show Password" : "Hide Password";
+    });
+</script>

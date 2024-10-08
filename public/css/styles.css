@@ -85,6 +85,129 @@ a {
   font-size: 20px;
 }
 
+/* Account Styling */
+
+.login-container {
+  background-color: rgb(40, 155, 190);
+  padding: 10px;
+  width: 500px;
+  margin: 0 auto;
+}
+
+#loginForm {
+  background-color: rgb(40, 155, 190);
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 500px;
+  height: 400px;
+  padding: 20px;
+  border: 2px solid white;
+}
+
+#loginForm p {
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.form-group label {
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.input-box {
+  max-width: 400px; 
+  margin: auto; 
+}
+
+.form-group {
+  margin-bottom: 1.5em; 
+}
+
+label {
+  display: block; 
+  margin-bottom: 0.5em; 
+  font-weight: bold;
+}
+
+input[type="email"],
+input[type="password"],
+input[type="text"] {
+  width: 350px; 
+  padding: 0.5em; 
+  border: 1px solid #ccc; 
+  border-radius: 4px; 
+}
+
+input[type="submit"] {
+  width: 60px;
+}
+
+button#showPassword {
+  background-color: black; 
+  color: white;
+  padding: 0.5em 1em; 
+  border: none; 
+  border-radius: 8px; 
+  cursor: pointer; 
+  font-size: 1em; 
+  margin-top: 0.5em;
+  transition: background-color 0.3s; 
+  margin-bottom: 20px;
+}
+
+button#showPassword:hover {
+  background-color: #333; 
+}
+
+.no-account-sign-up {
+  padding: 20px;
+  text-align: center;
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.no-account-sign-up a {
+  text-decoration: underline; 
+  font-weight: 600;
+}
+
+/* Registration */
+.registration-container {
+  background-color: rgb(40, 155, 190);
+  padding: 10px;
+  width: 500px;
+  margin: 0 auto;
+}
+
+#registrationForm {
+  background-color: rgb(40, 155, 190);
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 500px;
+  height: 400px;
+  padding: 20px;
+  border: 2px solid white;
+}
+
+#registrationForm label {
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#registerButton {
+  width: 150px;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-top: 5px;
+}
+
+.fine-print {
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 /* Navigation Styles */
 
 #vehicle-nav {

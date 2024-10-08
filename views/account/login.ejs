@@ -7,13 +7,23 @@
   <%  }) %>
    </ul>
   <% } %>
-<form class="input-box" id="loginForm" action="/account/login" method="post">
-    <label>Email<input type="email" name="account_email" required autocomplete="email" value="<%= locals.account_email %>"></label>
-    <label>Password<input type="password" name="account_password" id="password" required autocomplete="current-password" pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{12,}$"><span class="reveal-button active" id="passwordHide">hide password</span></label>
-    <input type="submit" value="LOGIN">
-</form>
-<div>
-    <span>No account? <a href="/account/registration">Sign up</a></span>
+<div class="login-container">
+    <form class="input-box" id="loginForm" action="/account/login" method="post">
+        <div class="form-group">
+            <label for="account_email">Email</label>
+            <input type="email" name="account_email" id="account_email" required autocomplete="email" value="<%= locals.account_email %>">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" name="account_password" id="password" required autocomplete="current-password" pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{12,}$">
+        </div>
+        <p>Passwords must be a minimum of 12 characters and include 1 capital letter, 1 number, and 1 special character.</p>
+        <button type="button" id="showPassword">Show Password</button>
+        <input type="submit" value="LOGIN">
+    </form>
+    <div class="no-account-sign-up">
+        <span>No account? <a href="/account/registration">Sign up</a></span>
+    </div>
 </div>
 <script>
     const passwordInput = document.querySelector("#password");
