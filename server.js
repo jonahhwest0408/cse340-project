@@ -63,29 +63,29 @@ app.use("/inv", inventoryRoute)
 //Account routes - Unit 4
 app.use("/account", accountRoute);
 
-// Error route
-app.use('/error', errorRoute);
+// // Error route
+// app.use('/error', errorRoute);
 
-// Error-handling middleware (place this after all other routes)
-app.use((err, req, res, next) => {
-  // Set the error status if not already set
-  res.status(err.status || 500);
+// // Error-handling middleware (place this after all other routes)
+// app.use((err, req, res, next) => {
+//   // Set the error status if not already set
+//   res.status(err.status || 500);
 
-  // Render the error view, passing in the error details and dynamic nav
-  res.render('error', { 
-    title: 'Server Error', 
-    message: 'Something went wrong on the server.', 
-    error: err,
-    nav: req.app.locals.nav // Assuming you store nav data in app.locals
-  });
-});
+//   // Render the error view, passing in the error details and dynamic nav
+//   res.render('error', { 
+//     title: 'Server Error', 
+//     message: 'Something went wrong on the server.', 
+//     error: err,
+//     nav: req.app.locals.nav // Assuming you store nav data in app.locals
+//   });
+// });
 
 // Catch-all for 404 errors
-app.use((req, res, next) => {
-  res.status(404).render('404', {
-      layout: false // Render without layout if needed
-  });
-});
+// app.use((req, res, next) => {
+//   res.status(404).render('404', {
+//       layout: false // Render without layout if needed
+//   });
+// });
 
 
 /* ***********************

@@ -1,0 +1,22 @@
+<h1>Add New Classification</h1>
+
+<form id="add-classification-form" action="/inv/add-classification" method="post">
+  <label for="classificationName">Classification Name:</label>
+  <input type="text" id="classificationName" name="classificationName" required pattern="^[a-zA-Z0-9]+$" title="No spaces or special characters allowed.">
+  
+  <div>
+    <small>No spaces or special characters allowed in classification name.</small>
+  </div>
+
+  <button type="submit">Add Classification</button>
+</form>
+
+<% if (messages && messages.length > 0) { %>
+  <div class="flash-messages">
+    <% messages.forEach(function(msg) { %>
+      <p><%= msg %></p>
+    <% }) %>
+  </div>
+<% } %>
+
+
