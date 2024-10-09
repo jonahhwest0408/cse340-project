@@ -2,8 +2,15 @@
 
 <form id="add-inventory-form" action="/inv/add-inventory" method="post">
   <label for="classificationList">Classification:</label>
-  <%= classificationList %> <!-- The classification dropdown will be dynamically inserted here -->
-  
+  <select name="classification_id" id="classificationList" required>
+    <option value=''>Choose a Classification</option>
+    <% classifications.forEach(function(classification) { %>
+      <option value="<%= classification.classification_id %>">
+        <%= classification.classification_name %>
+      </option>
+    <% }) %>
+  </select>
+
   <label for="make">Make:</label>
   <input type="text" id="make" name="make" value="<%= make ? make : '' %>" required>
   
@@ -31,10 +38,4 @@
   <button type="submit">Add Vehicle</button>
 </form>
 
-<% if (messages && messages.length > 0) { %>
-  <div class="flash-messages">
-    <% messages.forEach(function(msg) { %>
-      <p><%= msg %></p>
-    <% }) %>
-  </div>
-<% } %>
+
