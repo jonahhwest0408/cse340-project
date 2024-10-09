@@ -33,5 +33,12 @@ router.use((err, req, res, next) => {
     res.status(500).send('Something broke!');
 });
 
+// Process the login attempt
+router.post(
+  "/login",
+  (req, res) => {
+    res.status(200).send('login process')
+  }
+)
 
 module.exports = router;

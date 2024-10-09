@@ -10,9 +10,9 @@
 
 <div class="registration-container">
     <form class="input-box" id="registrationForm" action="/account/register" method="post">
-        <label>First name<input type="text" name="account_firstname" required autocomplete="given-name" value="<%= locals.account_firstname %>"></label>
-        <label>Last name<input type="text" name="account_lastname" required autocomplete="family-name" value="<%= locals.account_lastname %>"></label>
-        <label>Email address<input type="email" name="account_email" required autocomplete="email" value="<%= locals.account_email %>"></label>
+        <label>First name<input type="text" name="account_firstname" id="accountFirstname" required autocomplete="given-name" value="<%= locals.account_firstname %>"></label>
+        <label>Last name<input type="text" name="account_lastname" id="accountLastname"required autocomplete="family-name" value="<%= locals.account_lastname %>"></label>
+        <label>Email address<input type="email" name="account_email" id="accountEmail" required autocomplete="email" value="<%= locals.account_email %>"></label>
         <label>Password
             <input type="password" name="account_password" id="password" required autocomplete="new-password" 
                    pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{12,}$">
