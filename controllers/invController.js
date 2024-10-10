@@ -110,8 +110,8 @@ invCont.addInventoryView = async function (req, res, next) {
   try {
     // Fetch classification data using the model
     let classifications = await invModel.getClassifications();
-    let nav = await utilities.getNav();
 
+    // Render the add-inventory view with all necessary fields
     res.render('./inventory/add-inventory', {
       title: 'Add New Vehicle',
       nav,
@@ -119,6 +119,7 @@ invCont.addInventoryView = async function (req, res, next) {
       make: '',
       model: '',
       year: '',
+      description: '', // Add description field
       price: '',
       mileage: '',
       color: '',
@@ -137,30 +138,30 @@ invCont.addInventoryView = async function (req, res, next) {
  *  Process Add Inventory Form
  * ************************** */
 invCont.addInventory = async function (req, res, next) {
-  const { classification_id, make, model, year, price, mileage, color, image, thumbnail } = req.body;
-
-  // Perform server-side validation (you can customize this further)
-  if (!make || !model || !year || !price || !mileage || !color || !classification_id) {
-    req.flash("error", "All fields are required.");
-    return res.redirect("/inv/add-inventory");
-  }
-
   try {
-    // Call the model function to insert the new vehicle
-    const result = await invModel.insertVehicle({
-      classification_id, make, model, year, price, mileage, color, image, thumbnail
-    });
+    const vehicleData = {
+      inv_make: req.body.make,
+      inv_model: req.body.model,
+      inv_year: req.body.year,
+      inv_description: req.body.description || 'No description provided',
+      inv_image: req.body.image || '/images/no-image.jpg',
+      inv_thumbnail: req.body.thumbnail || '/images/no-image-thumb.jpg',
+      inv_price: req.body.price,
+      inv_miles: req.body.mileage,
+      inv_color: req.body.color,
+      classification_id: req.body.classification_id
+    };
 
-    if (result) {
-      req.flash("info", "New vehicle added successfully!");
-      return res.redirect("/inv/management"); // Redirect to management view with success
+    const addedVehicle = await invModel.addInventory(vehicleData);
+
+    if (addedVehicle) {
+      res.redirect('/inv'); // Redirect after successful insertion
     } else {
-      throw new Error("Failed to add vehicle.");
+      throw new Error("Failed to add vehicle to inventory.");
     }
-  } catch (err) {
-    req.flash("error", err.message);
-    return res.redirect("/inv/add-inventory");
+  } catch (error) {
+    next(error);
   }
-};
+}
 
 module.exports = invCont
