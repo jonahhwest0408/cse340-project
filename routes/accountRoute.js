@@ -37,7 +37,7 @@ router.post(
 /* ***********************
  * Account Management View (after login)
  *************************/
-router.get("/", utilities.handleErrors(accountController.buildAccountManagement));
+router.get("/", utilities.checkLogin, utilities.handleErrors(accountController.buildAccountManagement));
 
 
 //Error handling
