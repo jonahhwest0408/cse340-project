@@ -18,16 +18,22 @@ router.get("/login", utilities.handleErrors(accountController.buildLogin));
 router.get("/registration", utilities.handleErrors(accountController.buildRegister));
 
 /* ***********************
+ * Account Management View (after login)
+ *************************/
+router.get("/", utilities.handleErrors(accountController.buildAccountManagement));
+
+/* ***********************
  * Process Registration
  *************************/
 // Process the registration data
 router.post(
     "/register",
-    regValidate.registationRules(),
+    regValidate.registrationRules(),
     regValidate.checkRegData,
     utilities.handleErrors(accountController.registerAccount)
   )
 
+//Error handling
 router.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send('Something broke!');
@@ -36,9 +42,9 @@ router.use((err, req, res, next) => {
 // Process the login attempt
 router.post(
   "/login",
-  (req, res) => {
-    res.status(200).send('login process')
-  }
+  regValidate.registrationRules(),
+  regValidate.checkLoginData,
+  accountController.accountLogin  // Removed utilities.handleErrors
 )
 
 module.exports = router;
