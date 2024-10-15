@@ -1,6 +1,12 @@
 <h1><%- title %></h1>
 <%- messages() %>
 <!-- Error handling taken out -->
+<% if (messages.error) { %>
+    <div class="alert alert-danger">
+      <%= messages.error %>
+    </div>
+  <% } %>
+  
 <div class="login-container">
     <form class="input-box" id="loginForm" action="/account/login" method="post">
         <div class="form-group">

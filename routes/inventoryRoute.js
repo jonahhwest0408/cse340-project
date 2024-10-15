@@ -18,20 +18,20 @@ router.get('/trigger-error', (req, res, next) => {
   });
 
 /* ***********************
- * Management View
+ * Management Routes (Admin/Employee Only)
  *************************/
-router.get("/", utilities.handleErrors(invController.buildManagement));
+router.get("/", utilities.checkAdminOrEmployee, utilities.handleErrors(invController.buildManagement));
 
-// Route to render add-classification form
-router.get("/add-classification", utilities.handleErrors(invController.buildAddClassificationView));
+// Route to render add-classification form (Admin/Employee Only)
+router.get("/add-classification", utilities.checkAdminOrEmployee, utilities.handleErrors(invController.buildAddClassificationView));
 
-// Route to handle form submission
-router.post("/add-classification", utilities.handleErrors(invController.addClassification));
+// Route to handle form submission for adding classification (Admin/Employee Only)
+router.post("/add-classification", utilities.checkAdminOrEmployee, utilities.handleErrors(invController.addClassification));
 
-// Route to render the Add Inventory form
-router.get('/add-inventory', invController.addInventoryView);
+// Route to render the Add Inventory form (Admin/Employee Only)
+router.get('/add-inventory', utilities.checkAdminOrEmployee, utilities.handleErrors(invController.addInventoryView));
 
-// Route to handle adding the inventory item
-router.post('/add-inventory', invController.addInventory);
+// Route to handle adding the inventory item (Admin/Employee Only)
+router.post('/add-inventory', utilities.checkAdminOrEmployee, utilities.handleErrors(invController.addInventory));
 
 module.exports = router;

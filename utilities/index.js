@@ -174,4 +174,39 @@ Util.checkLogin = (req, res, next) => {
   }
  }
 
+ /* ****************************************
+ *  Check Admin or Employee
+ * ************************************ */
+ Util.checkAdminOrEmployee = (req, res, next) => {
+  if (req.cookies.jwt) {
+    jwt.verify(
+      req.cookies.jwt,
+      process.env.ACCESS_TOKEN_SECRET,
+      function (err, accountData) {
+        if (err) {
+          req.flash("error", "Please log in.");
+          res.clearCookie("jwt");
+          return res.redirect("/account/login");
+        }
+
+        res.locals.accountData = accountData;  // Store user data
+        res.locals.loggedin = 1;               // Indicate user is logged in
+
+        // Check if the user has the role of "Employee" or "Admin"
+        const accountType = accountData.account_type;
+        if (accountType === "Employee" || accountType === "Admin") {
+          next();  // Allow access to the admin route
+        } else {
+          req.flash("error", "You do not have permission to access this resource.");
+          res.redirect("/account/login");  // Redirect to login on failure
+        }
+      }
+    );
+  } else {
+    req.flash("error", "Please log in.");
+    res.redirect("/account/login");
+  }
+};
+
+
 module.exports = Util

@@ -122,4 +122,44 @@ validate.checkLoginData = async (req, res, next) => {
   next();
 };
 
+// Account Update Validation Rules
+validate.accountUpdateRules = () => {
+  return [
+      body("account_firstname")
+          .trim()
+          .notEmpty()
+          .withMessage("First name is required."),
+      body("account_lastname")
+          .trim()
+          .notEmpty()
+          .withMessage("Last name is required."),
+      body("account_email")
+          .trim()
+          .isEmail()
+          .withMessage("A valid email is required."),
+  ];
+};
+
+// Password Update Validation Rules
+validate.passwordUpdateRules = () => {
+  return [
+      body("current_password")
+          .trim()
+          .notEmpty()
+          .withMessage("Current password is required."),
+      body("new_password")
+          .trim()
+          .notEmpty()
+          .isStrongPassword({
+              minLength: 12,
+              minLowercase: 1,
+              minUppercase: 1,
+              minNumbers: 1,
+              minSymbols: 1,
+          })
+          .withMessage("Password does not meet requirements."),
+  ];
+};
+
+
 module.exports = validate

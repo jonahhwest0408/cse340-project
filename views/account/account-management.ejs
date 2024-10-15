@@ -1,4 +1,19 @@
 <div class="input-box" id="loginForm" action="/account/" method="post">
     <h2>Welcome New</h2>
     <p>You're logged in.</p>
+    <!-- Greeting Section -->
+    <h2>Welcome <%= firstName %></h2>
+
+    <!-- Update Account Information Link (Visible to all users) -->
+    <p>
+        <a href="/account/update/<%= accountId %>">Update Account Information</a>
+    </p>
+
+    <!-- Inventory Management Section (Visible to Admin/Employee Only) -->
+    <% if (accountType === "Admin" || accountType === "Employee") { %>
+        <h3>Inventory Management</h3>
+        <p>
+            <a href="/inv">Access Inventory Management</a>
+        </p>
+    <% } %>
 </div>
