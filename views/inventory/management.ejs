@@ -2,12 +2,53 @@
 <div class="management-view">
   <a href="/inv/add-classification">Add New Classification</a><br>
   <a href="/inv/add-inventory">Add New Inventory Item</a>
+  <!-- <a href="/inv/delete/:inventoryId">Delete Inventory Item</a> -->
 </div>
 
-<% if (messages && messages.length > 0) { %>
-  <div class="flash-messages">
-    <% messages.forEach(function(msg) { %>
-      <p><%= msg %></p>
-    <% }) %>
-  </div>
-<% } %>
+<form id="classificationForm">
+  <label for="classification">Select Classification:</label>
+  <select id="classification" name="classificationId">
+      <% classifications.forEach(function(classification) { %>
+          <option value="<%= classification.classification_id %>">
+              <%= classification.classification_name %>
+          </option>
+      <% }); %>
+  </select>
+</form>
+
+<div id="inventoryItems">
+  <!-- Inventory items here -->
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() { 
+    $('#classification').change(function() {
+        const classificationId = $(this).val();
+
+        // Make an AJAX request to fetch inventory items based on classification
+        $.ajax({
+            url: `/inv/classification/${classificationId}`, // Adjust the endpoint
+            method: 'GET',
+            success: function(data) {
+                let inventoryHTML = '<ul>';
+                data.forEach(item => {
+                    inventoryHTML += `
+                        <li>${item.inv_make} ${item.inv_model}
+                            <a href="/inv/delete-confirm/${item.inv_id}" class="delete-button">Delete</a>
+
+                        </li>`;
+                });
+                inventoryHTML += '</ul>';
+                $('#inventoryItems').html(inventoryHTML); // Update the div with items
+            },
+            error: function(err) {
+                console.error('Error fetching inventory items:', err);
+                $('#inventoryItems').html('<p>Error loading inventory items.</p>');
+            }
+        });
+    });
+});
+</script>
+
+

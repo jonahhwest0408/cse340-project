@@ -190,7 +190,6 @@ async function accountLogin(req, res) {
 async function updateAccount(req, res) {
   const { account_id, account_firstname, account_lastname, account_email } = req.body;
 
-  // Perform server-side validation here
   const errors = [];
   
   if (!account_firstname || !account_lastname || !account_email) {
@@ -202,27 +201,24 @@ async function updateAccount(req, res) {
       errors.push("Invalid email format.");
   }
 
-  // Check for existing email if necessary (optional)
   const existingEmail = await accountModel.checkExistingEmail(account_email);
   if (existingEmail > 0) {
       errors.push("This email is already in use.");
   }
 
-  // If there are validation errors
   if (errors.length > 0) {
       req.flash("error", errors.join(" "));
-      return res.redirect("/account/update"); // Redirect back to the update page
+      return res.redirect(`/account/update/${account_id}`); // Redirect to the correct route
   }
 
-  // If validation passes, proceed with the update
   try {
       await accountModel.updateAccount(account_id, account_firstname, account_lastname, account_email);
       req.flash("success", "Account updated successfully.");
-      return res.redirect("/account/manage");
+      return res.redirect("/account/management");
   } catch (error) {
       console.error("Update account error:", error.message);
       req.flash("error", "Failed to update account.");
-      return res.redirect("/account/update");
+      return res.redirect(`/account/update/${account_id}`); // Redirect to the correct route
   }
 }
 
@@ -254,7 +250,7 @@ async function changePassword(req, res) {
     
     if (regResult) {
       req.flash("success", `Congratulations, you've updated the password.`);
-      return res.redirect("/account/manage");
+      return res.redirect("/account/management");
     } else {
       req.flash("error", "Sorry, the password update failed.");
       return res.redirect("/account/update");

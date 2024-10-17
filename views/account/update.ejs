@@ -15,9 +15,19 @@
 <div class="account-update-section">
     <h2>Account Information</h2>
     <form action="/account/update" method="POST">
-        <input type="text" name="account_firstname" placeholder="First Name" required />
-        <input type="text" name="account_lastname" placeholder="Last Name" required />
-        <input type="email" name="account_email" placeholder="Email" required />
+        <!-- Hidden field to pass the account ID -->
+        <input type="hidden" name="account_id" value="<%= accountData.account_id %>" />
+
+        <!-- Populate the form fields with the existing account data -->
+        <label for="account_firstname">First Name:</label>
+        <input type="text" name="account_firstname" placeholder="First Name" value="<%= accountData.account_firstname %>" required />
+
+        <label for="account_lastname">Last Name:</label>
+        <input type="text" name="account_lastname" placeholder="Last Name" value="<%= accountData.account_lastname %>" required />
+
+        <label for="account_email">Email:</label>
+        <input type="email" name="account_email" placeholder="Email" value="<%= accountData.account_email %>" required />
+
         <button type="submit">Update Account</button>
     </form>
 </div>

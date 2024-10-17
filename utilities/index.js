@@ -208,5 +208,18 @@ Util.checkLogin = (req, res, next) => {
   }
 };
 
+/* *******************************
+ * Get Classifications from the Database
+ ******************************* */
+Util.getClassifications = async function () {
+  try {
+      const classifications = await invModel.getClassifications();
+      return classifications; // Assuming getClassifications returns the result directly
+  } catch (error) {
+      console.error("Error fetching classifications:", error);
+      throw error; // Rethrow the error to be handled elsewhere
+  }
+};
+
 
 module.exports = Util

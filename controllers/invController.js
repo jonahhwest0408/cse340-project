@@ -31,7 +31,7 @@ invCont.getVehicleDetail = async function (req, res, next) {
       res.render("./inventory/vehicleDetail", {
         title: `${vehicleData.inv_make} ${vehicleData.inv_model}`,
         nav,
-        vehicleData, //pass the data to the view
+        vehicleData, 
       });
     } else {
       res.status(404).send("Vehicle not found");
@@ -42,13 +42,27 @@ invCont.getVehicleDetail = async function (req, res, next) {
  *  Build management view for inventory
  * ************************** */
 invCont.buildManagement = async function(req, res, next) {
-  let nav = await utilities.getNav(); // Fetch navigation if needed
-  res.render("./inventory/management", {
-    title: "Inventory Management",
-    nav, 
-    errors: null,
-    messages: req.flash("info") // Handle flash messages
-  });
+  try {
+    let nav = await utilities.getNav(); 
+    const classificationResult = await invModel.getClassifications();
+    const classifications = classificationResult.rows; 
+
+    // Call your inventory items retrieval function, making sure to adjust based on your needs
+    const inventoryItems = await invModel.getInventoryByClassificationId();
+
+    res.render("./inventory/management", {
+      title: "Inventory Management",
+      nav,
+      classifications,
+      inventoryItems,
+      errors: null,
+      messages: req.flash("info") 
+    });
+  } catch (error) {
+    console.error("Error in buildManagement:", error);
+    req.flash("error", "An error occurred while fetching data.");
+    res.redirect("/some-error-page"); 
+  }
 };
 
 /* ***************************
@@ -115,11 +129,11 @@ invCont.addInventoryView = async function (req, res, next) {
     res.render('./inventory/add-inventory', {
       title: 'Add New Vehicle',
       nav,
-      classifications: classifications.rows, // Pass the classification data to the view
+      classifications: classifications.rows, 
       make: '',
       model: '',
       year: '',
-      description: '', // Add description field
+      description: '', 
       price: '',
       mileage: '',
       color: '',
@@ -155,7 +169,7 @@ invCont.addInventory = async function (req, res, next) {
     const addedVehicle = await invModel.addInventory(vehicleData);
 
     if (addedVehicle) {
-      res.redirect('/inv'); // Redirect after successful insertion
+      res.redirect('/inv'); 
     } else {
       throw new Error("Failed to add vehicle to inventory.");
     }
@@ -163,5 +177,49 @@ invCont.addInventory = async function (req, res, next) {
     next(error);
   }
 }
+
+invCont.showDeleteConfirm = async function (req, res, next) {
+  const itemId = req.params.inv_id; // Fetch vehicle ID from the route
+  const vehicleData = await invModel.getVehicleById(itemId); // Query DB for vehicle details by ID
+  let nav = await utilities.getNav(); // Generate navigation
+
+  if (vehicleData) {
+      // If vehicle data is found, render the delete confirmation page with the vehicle details
+      res.render('./inventory/delete-confirm', {
+          title: `Delete ${vehicleData.inv_make} ${vehicleData.inv_model}`,
+          nav,
+          vehicleData, // Pass the vehicle data to the view
+          flashMessage: req.flash('flashMessage'),
+          errors: req.flash('error'),
+      });
+  } else {
+      // If no vehicle found, send 404 error
+      res.status(404).send("Vehicle not found");
+  }
+};
+
+
+invCont.deleteInventoryItem = async function (req, res, next) {
+    try {
+        const itemId = req.body.inv_id; // Make sure to match the form field name
+        await invModel.deleteInventoryItem(itemId); // Delete item from database
+        res.redirect('/inv'); // Redirect to inventory list after deletion
+    } catch (error) {
+        console.error('Error deleting inventory item:', error);
+        res.status(500).send('Internal Server Error');
+    }
+};
+
+
+invCont.getInventoryByClassificationId = async function (req, res, next) {
+  try {
+      const classificationId = req.params.classificationId;
+      const data = await invModel.getInventoryByClassificationId(classificationId); // Make sure this function returns the correct items
+      res.json(data); 
+  } catch (error) {
+      console.error('Error fetching inventory items:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
 
 module.exports = invCont

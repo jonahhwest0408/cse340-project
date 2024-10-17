@@ -24,14 +24,19 @@ router.get("/", utilities.checkAdminOrEmployee, utilities.handleErrors(invContro
 
 // Route to render add-classification form (Admin/Employee Only)
 router.get("/add-classification", utilities.checkAdminOrEmployee, utilities.handleErrors(invController.buildAddClassificationView));
-
 // Route to handle form submission for adding classification (Admin/Employee Only)
 router.post("/add-classification", utilities.checkAdminOrEmployee, utilities.handleErrors(invController.addClassification));
 
 // Route to render the Add Inventory form (Admin/Employee Only)
 router.get('/add-inventory', utilities.checkAdminOrEmployee, utilities.handleErrors(invController.addInventoryView));
-
 // Route to handle adding the inventory item (Admin/Employee Only)
 router.post('/add-inventory', utilities.checkAdminOrEmployee, utilities.handleErrors(invController.addInventory));
+
+// In routes/inventory.js or similar file
+router.get('/delete-confirm/:inv_id', invController.showDeleteConfirm);
+router.post('/delete', invController.deleteInventoryItem);
+
+// Route to get inventory items by classification ID
+router.get('/classification/:classificationId', invController.getInventoryByClassificationId); 
 
 module.exports = router;

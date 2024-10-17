@@ -100,7 +100,7 @@ a {
   flex-direction: column;
   margin: 0 auto;
   width: 500px;
-  height: 400px;
+  height: 500px;
   padding: 20px;
   border: 2px solid white;
 }
@@ -119,6 +119,16 @@ a {
 .input-box {
   max-width: 400px; 
   margin: auto; 
+}
+
+.input-box a {
+  text-decoration: underline; 
+  font-weight: 600;
+  color: white; 
+}
+
+.input-box a:hover {
+  color: rgb(184, 197, 236); 
 }
 
 .form-group {
@@ -572,6 +582,131 @@ footer {
   text-decoration: underline;
   color: blue;
   padding: 30px;
+}
+
+/* Delete Inventory Item */
+#classificationForm {
+  margin-top: 30px;
+}
+
+#classificationForm {
+  margin: 20px 0;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  max-width: 300px; 
+}
+
+#classificationForm label {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+#classification {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+  outline: none;
+  transition: border 0.3s ease;
+}
+
+#classification:hover,
+#classification:focus {
+  border: 1px solid #007bff;
+  background-color: #fff;
+}
+
+#classification option {
+  padding: 10px;
+  background-color: #fff;
+}
+
+/* Delete Confirmation Page */
+.delete-confirm-details {
+  margin: 0 auto;
+  background: rgb(40, 155, 190);
+  width: 400px;
+  height: 400px;
+  padding: 20px;
+}
+
+.delete-confirm-details p {
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.center-container {
+  display: flex;
+  flex-direction: column; 
+  align-items: center; 
+  justify-content: center; 
+  gap: 10px; 
+  margin-top: 20px; 
+}
+
+/* Optional: Style the Cancel link to match the button style */
+.cancel-link {
+  text-decoration: underline;
+  color: white;
+  font-size: 16px;
+  transition: color 0.3s ease;
+  font-weight: 600;
+  margin-top: 30px;
+}
+
+.cancel-link:hover {
+  color: #0056b3; /* Darker color on hover */
+}
+
+.btn-delete {
+  background-color: #d9534f; 
+  color: white; 
+  padding: 10px 20px; 
+  border: none; 
+  border-radius: 5px; 
+  font-size: 16px; 
+  cursor: pointer;
+  transition: background-color 0.3s ease; 
+}
+
+.btn-delete:hover {
+  background-color: #c9302c; 
+}
+
+/* Container for inventory items */
+#inventoryItems {
+  margin-top: 20px;
+}
+
+/* Optional styles for inventory list */
+#inventoryItems ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+#inventoryItems li {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  font-size: 16px;
+}
+
+#inventoryItems li:last-child {
+  border-bottom: none;
+}
+
+.delete-button {
+  color: red;
+  text-decoration: none;
+  margin-left: 10px;
+  font-size: 14px;
+}
+
+.delete-button:hover {
+  text-decoration: underline;
 }
 
 /* Add classification Form */

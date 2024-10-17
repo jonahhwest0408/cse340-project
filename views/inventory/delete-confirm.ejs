@@ -1,0 +1,17 @@
+<h1>Delete Confirmation</h1>
+
+<div class="delete-confirm-details">
+    <p>Are you sure you want to delete the following item?</p>
+    <p><strong>Make:</strong> <%= vehicleData.inv_make %></p>
+    <p><strong>Model:</strong> <%= vehicleData.inv_model %></p>
+    <p><strong>Year:</strong> <%= vehicleData.inv_year %></p>
+    <p><strong>Price:</strong> <%= vehicleData.inv_price %></p>
+
+    <div class="center-container">
+        <form action="/inv/delete-confirm/<%= vehicleData.inv_id %>" method="POST">
+            <input type="hidden" name="id" value="<%= vehicleData.inv_id %>">
+            <button type="submit" class="btn-delete">Yes, Delete</button>
+        </form>
+        <a href="/inv" class="cancel-link">Cancel</a>
+    </div>
+</div>
