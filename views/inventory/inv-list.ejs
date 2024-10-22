@@ -1,0 +1,26 @@
+
+    <h1><%= title %></h1>
+
+    <table class="inv-list">
+        <thead>
+            <tr>
+                <th>Make</th>
+                <th>Model</th>
+                <th>Price</th>
+                <th>Color</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% inventoryItems.forEach(item => { %>
+                <tr>
+                    <td><%= item.inv_make %></td>
+                    <td><%= item.inv_model %></td>
+                    <td><%= item.inv_price %></td>
+                    <td><%= item.inv_color %></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+
+  <a class="return-btn" href="/account">Return to Account View</a>
+

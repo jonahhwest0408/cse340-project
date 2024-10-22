@@ -222,4 +222,24 @@ invCont.getInventoryByClassificationId = async function (req, res, next) {
   }
 };
 
+/* ***************************
+ *  Get list of all inventory items
+ * ************************** */
+invCont.getInvList = async function (req, res, next) {
+  try {
+    const inventoryItems = await invModel.getAllInventory(); // Get all inventory items
+    let nav = await utilities.getNav(); // Fetch navigation
+
+    res.render("./inventory/inv-list", {
+      title: "Inventory List",
+      nav,
+      inventoryItems, // Pass the inventory items to the view
+    });
+  } catch (error) {
+    console.error("Error fetching inventory list:", error);
+    req.flash("error", "An error occurred while fetching inventory items.");
+    res.redirect("/some-error-page");
+  }
+};
+
 module.exports = invCont

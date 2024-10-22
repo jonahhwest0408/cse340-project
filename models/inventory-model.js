@@ -95,5 +95,20 @@ async function deleteInventoryItem(inv_id) {
   }
 }
 
+/* ***************************
+ *  Get all inventory items
+ * ************************** */
+async function getAllInventory() {
+  try {
+    const data = await pool.query(
+      `SELECT inv_make, inv_model, inv_price, inv_color FROM public.inventory`
+    );
+    return data.rows; // Return all inventory items
+  } catch (error) {
+    console.error("getAllInventory error: " + error);
+    throw error; // Rethrow the error to be handled in the controller
+  }
+}
 
-module.exports = {getClassifications, getInventoryByClassificationId, getVehicleById, insertClassification, addInventory, deleteInventoryItem }
+
+module.exports = {getClassifications, getInventoryByClassificationId, getVehicleById, insertClassification, addInventory, deleteInventoryItem, getAllInventory }

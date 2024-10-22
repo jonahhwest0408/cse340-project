@@ -39,4 +39,7 @@ router.post('/delete', invController.deleteInventoryItem);
 // Route to get inventory items by classification ID
 router.get('/classification/:classificationId', invController.getInventoryByClassificationId); 
 
+// Search Inv
+router.get('/inv-list', utilities.handleErrors(invController.getInvList));
+
 module.exports = router;
